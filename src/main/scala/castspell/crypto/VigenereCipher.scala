@@ -17,18 +17,17 @@ object VigenereCipher {
    */
   def encrypt(key: String, message: String): String = {
 
-    def encryptIter(key: String, message: String, pos: Int, encrypted:StringBuilder):StringBuilder =
+    def encryptIter(pos: Int, encrypted: StringBuilder):StringBuilder =
       if(pos == message.length)
         encrypted
       else
-        encryptIter(key,
-          message,
+        encryptIter(
           pos+1,
           encrypted.append( ShiftCipher.encrypt(
               keyCharAt(key, pos),
               message.charAt(pos) ) ) )
 
-    encryptIter(key, message, 0, new StringBuilder())
+    encryptIter(0, new StringBuilder())
       .toString
   }
 
@@ -45,18 +44,17 @@ object VigenereCipher {
    * @return decrypted message
    */
   def decrypt(key: String, message: String): String = {
-    def decryptIter(key: String, message: String, pos: Int, decrypted: StringBuilder): StringBuilder =
+    def decryptIter(pos: Int, decrypted: StringBuilder): StringBuilder =
       if (pos == message.length)
         decrypted
       else
-        decryptIter(key,
-          message,
+        decryptIter(
           pos + 1,
-          decrypted.append(ShiftCipher.decrypt(
+          decrypted.append( ShiftCipher.decrypt(
             keyCharAt(key, pos),
             message.charAt(pos))))
 
-    decryptIter(key, message, 0, new StringBuilder())
+    decryptIter(0, new StringBuilder())
       .toString
   }
 
